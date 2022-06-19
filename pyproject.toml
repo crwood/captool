@@ -1,0 +1,32 @@
+[project]
+name = "captool"
+version = "0.0.1"
+description = "Experimental functions for generating and transcoding Tahoe-LAFS capabilities"
+readme = "README.md"
+authors = [{name = "Christopher R. Wood"}]
+license = {text = "MIT"}
+dependencies = [
+    "blake3",
+    "click",
+    "cryptography",
+    "mnemonic",
+    "pycryptodomex",
+    "tahoe-lafs",
+]
+
+[project.scripts]
+captool = "captool.captool:main"
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+profile = "black"
+line_length = 79
+multi_line_output = 3
