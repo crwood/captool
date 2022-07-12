@@ -3,9 +3,9 @@ from base64 import b32decode, b32encode
 from secrets import token_bytes
 
 import click
+from allmydata import uri
 from allmydata.util.hashutil import (
     ssk_pubkey_fingerprint_hash,
-    ssk_readkey_hash,
     ssk_writekey_hash,
 )
 from blake3 import blake3
@@ -71,11 +71,7 @@ def generate_mutable_filecap(seed: bytes) -> str:
 
 
 def diminish(cap: str) -> str:
-    s = cap.split(":")
-    cap_type = s[1]
-    diminishers = {"MDMF": ssk_readkey_hash}
-    diminished = capencode(diminishers[cap_type](capdecode(s[2])))
-    return f"URI:{cap_type}-RO:{diminished}:{s[3]}"
+    return uri.from_string(cap).get_readonly().to_string().decode()
 
 
 @click.group()
